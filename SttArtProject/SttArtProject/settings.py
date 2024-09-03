@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from google.oauth2 import service_account
+from google.cloud import storage
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -37,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'SttArtApp', # 'SttArtApp.apps.SttartappConfig'와 동일
+    'corsheaders', # CORS 설정
+
 ]
 
 MIDDLEWARE = [
@@ -47,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware' # CORS 설정
 ]
 
 ROOT_URLCONF = 'SttArtProject.urls'
@@ -79,7 +84,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'djongo',
+#             'NAME': 'SttArtDataBase',
+#             'ENFORCE_SCHEMA': False,
+#             'CLIENT': {
+#                 'host: mongodb+srv://takkiii143:<db_password>@cluster0.55nzr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+#             }
+#         }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -116,8 +130,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CORS 설정
+CORS_ALLOWED_ORIGINS = [
+     "http://localhost:8080",  # Vue.js 애플리케이션이 실행되는 주소
+]
+
+# Google Cloud Storage 설정
+GOOGLE_CLOUD_STORAGE_BUCKET = 'stt-art-project'
+GOOGLE_CLOUD_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    'C:\Temp\key\sttartproject-1dfbfe6da76d.json' # 'path/to/your-service-account-file.json'
+)
