@@ -78,22 +78,24 @@ WSGI_APPLICATION = 'SttArtProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 # DATABASES = {
-#         'default': {
-#             'ENGINE': 'djongo',
-#             'NAME': 'SttArtDataBase',
-#             'ENFORCE_SCHEMA': False,
-#             'CLIENT': {
-#                 'host: mongodb+srv://takkiii143:<db_password>@cluster0.55nzr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
-#             }
-#         }
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
 # }
+
+# DB 설정
+DATABASES = {
+        'default': {
+            'ENGINE': 'djongo',
+            'NAME': 'SttArtDataBase',
+            'ENFORCE_SCHEMA': False,
+            'CLIENT': {
+                'host': 'mongodb+srv://takkiii143:20240923az@cluster0.55nzr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+            }
+        }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
